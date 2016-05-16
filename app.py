@@ -11,15 +11,19 @@ app=Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/',methods=["GET","POST"])
+@app.route('/',methods=["POST"])
 
 def getData():
+    print("Hello")
     if request.method=="POST":
+        print("Method is post, Hello")
         if request.headers['Content-Type']=='text/plain':
+        
             data=request.data
-            if data=="on":
+            print(data)    
+            if data==b'on':
                 led.on()
-            elif data=="off":
+            elif data==b'off':
                 led.off()
 
     return render_template('index.html')    

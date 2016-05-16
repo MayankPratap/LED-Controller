@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Controlling LED with POST</title>
+  <script>
+
+    function sendRequest(url,payload){
+
+      var xhr=new XMLHttpRequest();
+
+      if(xhr){
+  
+        xhr.open("POST",url,true);
+        xhr.setRequestHeader("Content-Type","text/plain");
+        xhr.onreadystatechange=function(){
+          
+          handleResponse(xhr);
+
+        };
+       
+        xhr.send(payload);
+      }
+
+    }
+
+    function handleResponse(xhr){
+
+      if(xhr.readyState==4 && xhr.status==200){
+
+         alert(xhr.responseText);
+      }
+
+    }
+    
+    function sendData(data){
+
+       var url="";
+       var payload=data;
+        
+       sendRequest(url,payload);
+
+    }
+
+    window.onload=function(){
+
+       document.getElementById('on').onclick=function(){
+
+          sendData("on");
+
+       };
+
+       document.getElementById('off').onclick=function(){
+          
+          sendData("off");
+
+       }; 
+    
+    };   
+
+
+  </script>
+</head>
+<body>
+
+ <input type="button" id="on" value="ON">
+ <input type="button" id="off" value="OFF">
+  
+</body>
+
+</html>
